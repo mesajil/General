@@ -41,10 +41,10 @@ print ("Compas: {n}/{d}".format(n = numeradores[numerador], d = denominadores[de
 salir = True
 
 while (salir == True):
-    opcion = input("Continuar y/n: ")
+    opcion = input("Presione enter para continuar y n para salir: ")
     if opcion == 'n':
         salir = False
-    elif opcion == 'y':
+    elif opcion == '':
         pulsos = compas(numeradores[numerador], sonidos, noConsiderar)
         print(pulsos)
     else:
