@@ -30,7 +30,7 @@ def compas(numerador, sonidos, noConsiderar):
 
 
 
-sonidos = {1: ' DO', 2: ' RE', 3: ' MI', 4: ' FA', 5: 'SOL', 6: ' LA', 7: ' SI'}
+sonidos = {1: 'Do', 2: 'Re', 3: 'Mi', 4: 'Fa', 5: 'Sol', 6: 'La', 7: 'Si'}
 noConsiderar = [7]
 numeradores = {1: 2, 2: 3, 3: 4}
 denominadores = {1: 2, 2: 4, 3: 8}
