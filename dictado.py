@@ -1,13 +1,10 @@
 import random
 def baseOfSound (base, sonido):
-    if base == 1:
-        return sonido + sonido[-1]*2
-    elif base == 2:
-        return sonido
-    elif base == 3:
-        return sonido*2
-    elif base == 4:
-        return sonido*4
+    if base == 1: return '(' + sonido + ')'
+    if base == 2: return sonido
+    if base == 3: return sonido*2
+    if base == 4: return sonido*4
+
 
 def compas(numerador, sonidos, noConsiderar):
     pulsos = []
