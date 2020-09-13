@@ -1,4 +1,4 @@
-
+from itertools import combinations 
 def calSubGrupos (lista = [], nSubGrupos = 0):
     if (nSubGrupos <= 0): return []
     if (nSubGrupos == 1): return [[e] for e in lista]
@@ -18,5 +18,5 @@ nSubGrupos = int (input ("Ingrese numero de sub-grupos: "))
 
 subGrupos = calSubGrupos (lista = lista, nSubGrupos = nSubGrupos)
 
-for e in subGrupos:
+for e in combinations(lista, nSubGrupos):
     print (e)
