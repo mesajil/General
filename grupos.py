@@ -12,13 +12,11 @@ def calSubGrupos (lista = [], nSubGrupos = 0):
 
 
 lista = ["React", "Ionic", "Xamarin", "Java"]
-lista = ['a','b','c','d','e']
+
 nSubGrupos = int (input ("Ingrese numero de sub-grupos: "))
 
 
 subGrupos = calSubGrupos (lista = lista, nSubGrupos = nSubGrupos)
 
-for subGrupo in subGrupos:
-    print (subGrupo)
-# print (subGrupos)
-
+for e in subGrupos:
+    print (e)
