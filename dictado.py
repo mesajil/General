@@ -15,7 +15,7 @@ def calCompas(numerador, sonidos, noConsiderar):
         if sonido in noConsiderar:
             continue
         else:
-            base = random.choice(list(bases.keys()))
+            base = random.choice(list(bases.keys())) if sonido != 8 else 2
             if ((contador + bases[base])> numerador):
                 continue
             else:
@@ -27,7 +27,7 @@ def calCompas(numerador, sonidos, noConsiderar):
 
 
 
-sonidos = {1: 'Do', 2: 'Re', 3: 'Mi', 4: 'Fa', 5: 'Sol', 6: 'La', 7: 'Si'}
+sonidos = {1: 'Do', 2: 'Re', 3: 'Mi', 4: 'Fa', 5: 'Sol', 6: 'La', 7: 'Si', 8: '{}'}
 noConsiderar = []
 numeradores = {1: 2, 2: 3, 3: 4}
 denominadores = {1: 2, 2: 4, 3: 8}
