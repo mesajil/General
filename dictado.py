@@ -27,7 +27,7 @@ def calCompas(numerador, sonidos, noConsiderar):
 
 
 
-sonidos = {1: 'Do', 2: 'Re', 3: 'Mi', 4: 'Fa', 5: 'Sol', 6: 'La', 7: 'Si', 8: '{}'}
+sonidos = {1: 'Do', 2: 'Re', 3: 'Mi', 4: 'Fa', 5: 'Sol', 6: 'La', 7: 'Si', 8: '()'}
 noConsiderar = []
 numeradores = {1: 2, 2: 3, 3: 4}
 denominadores = {1: 2, 2: 4, 3: 8}
