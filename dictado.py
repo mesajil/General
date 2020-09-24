@@ -41,18 +41,17 @@ print ("Compas: {n}/{d}".format(n = numerador, d = denominador))
 salir = True
 
 """
-Menú de dictado: 
-    Enter: Siguiente dictado de compás
-    n: Salir del menú
-    Other: Preguntar otra vez
+    Menú de dictado: 
+    Pide ingresar una opción para que empieze el dictado
+    n: Sale del menú y termina el programa
+    Otro: Imprime el dictado de compás
 """
-while (salir == True):
+opcion = ""
+while (opcion != "n"):
     opcion = input("Presione enter para continuar y n para salir: ")
-    if opcion == 'n':
-        salir = False
-    elif opcion == '':
-        pulsos = calCompas(numerador, sonidos, noConsiderar)
-        print(pulsos, random.choice(range(1,numerador+1)), random.choice([True,False]))
-    else:
-        continue
-        
+    if opcion == 'n': continue
+    
+    [print(e,end=", ") for e in calCompas(numerador, sonidos, noConsiderar)]
+    print()
+    [print(random.choice([False, True]), end=", ") for x in range(numerador)]
+    print()
