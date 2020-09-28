@@ -1,6 +1,6 @@
 import random
-def formatSound (base, pair):
-    if base == 1: return '(' + pair[0] + ')'
+def formatSound (base, pair, puntillo):
+    if base == 1: return '(' + pair[0] + ')' + ("." if puntillo else "")
     if base == 2: return pair[0]
     if base == 3: return pair[0] + pair[1]
     if base == 4: return pair[0]*2 + pair[1]*2
@@ -15,15 +15,24 @@ def calCompas(numerador, sonidos, noConsiderar):
         
         if sonido in noConsiderar: continue
         base = random.choice(list(bases.keys())) if sonido != 8 else 2
+
         if ((contador + bases[base])> numerador): continue
+        
+        contador += bases[base]
+
+        puntillo = False
+        if (base == 1):
+            if (random.choice([True, False])):
+                if ((contador + 1) <= numerador):
+                    puntillo = True
+                    contador += 1
         
         sonido2 = 8
         if (base == 3 or base == 4):
             while (sonido2 == 8):
                 sonido2 = random.choice(list(sonidos.keys()))
 
-        contador += bases[base]
-        pulsos.append(formatSound(base, (sonidos[sonido], sonidos[sonido2])))
+        pulsos.append(formatSound(base, (sonidos[sonido], sonidos[sonido2]), puntillo))
 
     return pulsos
 
@@ -42,7 +51,6 @@ numerador = int(numeradorInput) if ("" != numeradorInput) else numeradores[rando
 denominador = int(denominadorInput) if ("" != denominadorInput) else denominadores[random.choice(list(denominadores.keys()))]
 
 print ("Compas: {n}/{d}".format(n = numerador, d = denominador))
-salir = True
 
 """
     Menú de dictado: 
@@ -53,9 +61,10 @@ salir = True
 opcion = ""
 while (opcion != "n"):
     opcion = input("Presione enter para continuar y n para salir: ")
-    if opcion == 'n': continue
-    
-    [print(e,end=", ") for e in calCompas(numerador, sonidos, noConsiderar)]
+    if opcion != "": continue
+    print ()
+    [print(e,end=" ") for e in calCompas(numerador, sonidos, noConsiderar)]
     print()
-    [print(random.choice([False, True]), end=", ") for x in range(numerador)]
     print()
+    # [print(random.choice([False, True]), end=", ") for x in range(numerador)]
+    # print()
