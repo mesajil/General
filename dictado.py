@@ -1,9 +1,9 @@
 import random
-def formatSound (base, sonido):
-    if base == 1: return '(' + sonido + ')'
-    if base == 2: return sonido
-    if base == 3: return sonido*2
-    if base == 4: return sonido*4
+def formatSound (base, pair):
+    if base == 1: return '(' + pair[0] + ')'
+    if base == 2: return pair[0]
+    if base == 3: return pair[0] + pair[1]
+    if base == 4: return pair[0]*2 + pair[1]*2
 
 
 def calCompas(numerador, sonidos, noConsiderar):
@@ -12,15 +12,19 @@ def calCompas(numerador, sonidos, noConsiderar):
     bases = {1:2, 2:1, 3:1, 4:1}
     while (contador != numerador):
         sonido = random.choice(list(sonidos.keys()))
-        if sonido in noConsiderar:
-            continue
-        else:
-            base = random.choice(list(bases.keys())) if sonido != 8 else 2
-            if ((contador + bases[base])> numerador):
-                continue
-            else:
-                contador += bases[base]
-                pulsos.append(formatSound(base, sonidos[sonido]))
+        
+        if sonido in noConsiderar: continue
+        base = random.choice(list(bases.keys())) if sonido != 8 else 2
+        if ((contador + bases[base])> numerador): continue
+        
+        sonido2 = 8
+        if (base == 3 or base == 4):
+            while (sonido2 == 8):
+                sonido2 = random.choice(list(sonidos.keys()))
+
+        contador += bases[base]
+        pulsos.append(formatSound(base, (sonidos[sonido], sonidos[sonido2])))
+
     return pulsos
 
 
