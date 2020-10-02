@@ -37,6 +37,6 @@ def calCompas(numerador, noConsiderar):
             while (sonido2 == 8):
                 sonido2 = random.choice(list(NOTAS.keys()))
 
-        pulsos.append(formatSound(base, (NOTAS[sonido], NOTAS[sonido2]), puntillo))
+        pulsos.append(("~" if random.choice([True, False]) else "") + formatSound(base, (NOTAS[sonido], NOTAS[sonido2]), puntillo))
 
     return pulsos
