@@ -1,4 +1,4 @@
-from constans import NOTAS
+from constans import NOTAS_SI
 import random
 
 # def verSiEsInvertida (pair):
@@ -16,7 +16,7 @@ def calCompas(numerador, noConsiderar):
     contador = 0
     bases = {1:2, 2:1, 3:1, 4:1}
     while (contador != numerador):
-        sonido = random.choice(list(NOTAS.keys()))
+        sonido = random.choice(list(NOTAS_SI.keys()))
         
         if sonido in noConsiderar: continue
         base = random.choice(list(bases.keys())) if sonido != 8 else 2
@@ -35,8 +35,11 @@ def calCompas(numerador, noConsiderar):
         sonido2 = 8
         if (base == 3 or base == 4):
             while (sonido2 == 8):
-                sonido2 = random.choice(list(NOTAS.keys()))
+                sonido2 = random.choice(list(NOTAS_SI.keys()))
 
-        pulsos.append(("~" if random.choice([True, False]) else "") + formatSound(base, (NOTAS[sonido], NOTAS[sonido2]), puntillo))
+        pulsos.append(("~" if random.choice([True, False]) else "") + formatSound(base, (NOTAS_SI[sonido], NOTAS_SI[sonido2]), puntillo))
 
     return pulsos
+
+
+
