@@ -1,10 +1,14 @@
 import random
 import string
-
+VOCALES = "AEIOU"
 def returnRandomLetters (n):
     str = ""
-    for _ in range(n):
-        str += random.choice(string.ascii_uppercase)
+    i = 0
+    while (i < n):
+        c = random.choice(string.ascii_uppercase)
+        if (c == "U") or (c not in VOCALES):
+            str += c
+            i += 1 
     return str
 
 def desplegarMenu ():
