@@ -6,7 +6,7 @@ def returnRandomLetters (n):
     i = 0
     while (i < n):
         c = random.choice(string.ascii_uppercase)
-        if (c == "U") or (c not in VOCALES):
+        if c not in VOCALES:
             str += c
             i += 1 
     return str
@@ -18,10 +18,11 @@ def desplegarMenu ():
 op = ""
 print ("Ingrese numero de letras a generar: ")
 n = int (input())
-
+i = 0
 while (op != "n"):
     desplegarMenu ()
     op = input()
     if (op != ""):
         continue
-    print (returnRandomLetters(n), "\n\n")
+    i += 1
+    print ("{}. {}".format(i, returnRandomLetters(n)), "\n\n")
