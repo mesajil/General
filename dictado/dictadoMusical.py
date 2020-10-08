@@ -1,7 +1,14 @@
+
+"""
+    Menú de dictado: 
+    Pide ingresar una opción para que empieze el dictado
+    n: Sale del menú y termina el programa
+    Otro: Imprime el dictado de compás
+"""
+
 import random
 from functions import calCompas
-
-noConsiderar = []
+import musicalSymbols
 numeradores = {1: 2, 2: 3, 3: 4}
 denominadores = {1: 2, 2: 4, 3: 8}
 
@@ -11,21 +18,15 @@ numerador = int(numeradorInput) if ("" != numeradorInput) else numeradores[rando
 denominador = int(denominadorInput) if ("" != denominadorInput) else denominadores[random.choice(list(denominadores.keys()))]
 
 print ("Compas: {n}/{d}".format(n = numerador, d = denominador))
-
-"""
-    Menú de dictado: 
-    Pide ingresar una opción para que empieze el dictado
-    n: Sale del menú y termina el programa
-    Otro: Imprime el dictado de compás
-"""
 opcion = ""
+NOTAS = musicalSymbols.NOTAS_EN_1
+
 while (opcion != "n"):
     opcion = input("Presione enter para continuar y n para salir: ")
     if opcion != "": continue
     print ()
-    [print(e,end=" ") for e in calCompas(numerador, noConsiderar)]
-    print()
-    print()
+    [print(e,end=" ") for e in calCompas(numerador, NOTAS, False)]
+    print("\n")
 
 
 
