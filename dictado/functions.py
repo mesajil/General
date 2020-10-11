@@ -34,7 +34,7 @@ def calCompas(numerador, NOTAS, both):
             while (sonido2 == REST):
                 sonido2 = NOTAS[random.choice(list(NOTAS.keys()))]
 
-        pulsos.append(("|" if both and random.choice([True, False]) else "") + formatSound(base, (NOTAS[sonido], sonido2), puntillo))
+        pulsos.append(("|" if both and random.choice([True, False]) else "|") + formatSound(base, (NOTAS[sonido], sonido2), puntillo))
 
     return pulsos
 

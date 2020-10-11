@@ -19,7 +19,7 @@ denominador = int(denominadorInput) if ("" != denominadorInput) else denominador
 
 print ("Compas: {n}/{d}".format(n = numerador, d = denominador))
 opcion = ""
-NOTAS = musicalSymbols.NOTAS_EN_AGUDAS
+NOTAS = musicalSymbols.NOTAS_EN
 
 while (opcion != "n"):
     opcion = input("Presione enter para continuar y n para salir: ")
