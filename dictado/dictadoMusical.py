@@ -16,7 +16,7 @@ def desplegarMenu ():
     print ("#  Menu de dictado musical:")
     print ("1. Presione enter o uno para imprimir el siguiente compas")
     print ("2. Para imprimir el resumen de compases dictados hasta el momento.")
-    print ("   Presione r o dos y adicione el numero de columnas de la impresión")
+    print ("   Presione r o dos y adicione el numero de columnas de la impresion")
     print ("   Ejemplo: 2 2")
     print ("n. Presione n para salir.")
 
@@ -35,10 +35,11 @@ def printCompases (cmd, compases):
         print ()
 
 def printCompas(compas):
-    [print(nota,end=" ") for nota in compas]
+    [print(nota,end="") for nota in compas]
     if len(compas) == 1:
         print("\t", end = "")
 
+desplegarMenu()
 numeradorInput = input ("Ingrese el compas: ")
 denominadorInput = input ("Ingrese la subdivision: ")
 numerador = int(numeradorInput) if ("" != numeradorInput) else numeradores[random.choice(list(numeradores.keys()))]
@@ -49,7 +50,6 @@ op = ""
 NOTAS = musicalSymbols.NOTAS_EN
 compases = []
 nCompas = 0
-desplegarMenu()
 
 while (op != "n"):
     print ("Presione enter para continuar, n para salir o r para imprimir resumen.")
