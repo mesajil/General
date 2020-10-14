@@ -9,7 +9,7 @@ def formatSound (base, pair, puntillo):
 
 
 
-def calCompas(numerador, NOTAS, both):
+def calCompas(numerador, NOTAS):
     pulsos = []
     contador = 0
     bases = {1:2, 2:1, 3:1, 4:1}
@@ -34,7 +34,7 @@ def calCompas(numerador, NOTAS, both):
             while (sonido2 == REST):
                 sonido2 = NOTAS[random.choice(list(NOTAS.keys()))]
 
-        pulsos.append(("|" if both and random.choice([True, False]) else " ") + formatSound(base, (NOTAS[sonido], sonido2), puntillo))
+        pulsos.append(random.choice(["|", ""]) + formatSound(base, (NOTAS[sonido], sonido2), puntillo))
 
     return pulsos
 
