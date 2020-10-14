@@ -55,7 +55,7 @@ while (op != "n"):
     print ("Presione enter para continuar, n para salir o r para imprimir resumen.")
     op = input()
     if (op == "" or op == "1"):
-        compases.append(calCompas(numerador, NOTAS, False))
+        compases.append(calCompas(numerador, NOTAS))
         printCompas(compases[nCompas])
         print("\n")
         nCompas += 1
