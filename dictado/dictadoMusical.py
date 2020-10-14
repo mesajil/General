@@ -28,16 +28,14 @@ def printCompases (cmd, compases):
     while (i < len(compases)):
         j = 0
         while (j < col and i < len(compases)):
-            printCompas(compases[i])
-            print("\t\t", end = " ")
+            printCompas(compases[i], " ")
+            print("\t", end = " ")
             j += 1
             i += 1
         print ()
 
-def printCompas(compas):
-    [print(nota,end="") for nota in compas]
-    if len(compas) == 1:
-        print("\t", end = "")
+def printCompas(compas, sep):
+    [print(nota,end=sep) for nota in compas]
 
 desplegarMenu()
 numeradorInput = input ("Ingrese el compas: ")
@@ -56,7 +54,7 @@ while (op != "n"):
     op = input()
     if (op == "" or op == "1"):
         compases.append(calCompas(numerador, NOTAS))
-        printCompas(compases[nCompas])
+        printCompas(compases[nCompas], "\t")
         print("\n")
         nCompas += 1
     else:
