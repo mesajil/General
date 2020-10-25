@@ -20,22 +20,35 @@ def desplegarMenu ():
     print ("   Ejemplo: 2 2")
     print ("n. Presione n para salir.")
 
-def printCompases (cmd, compases):
-    # cmd es de la forma ["r", "2"] o ["2", "2"]
-    # cmd[1] representa el número de columnas, este puede variar dependiendo del número ingresado
+def printCompases (col, compases):
     i = 0
-    col = int (cmd[1])
     while (i < len(compases)):
         j = 0
         while (j < col and i < len(compases)):
-            printCompas(compases[i], " ")
+            printCompas(compases[i], 1, " ")
             print("\t", end = " ")
             j += 1
             i += 1
         print ()
 
-def printCompas(compas, sep):
-    [print(nota,end=sep) for nota in compas]
+def printCompas(compas, mode = 0, sep = '\t', car = "*"):
+    
+    if mode == 0:
+        for (altura, ritmo) in compas:
+            if altura:
+                print(ritmo,end=sep)
+            else:
+                print(car,end=sep)
+        print()
+        for (altura, ritmo) in compas:
+            if not altura:
+                print(ritmo,end=sep)
+            else:
+                print(car,end=sep)
+    elif mode == 1:
+        [print(("|" if (altura) else "")+ritmo,end=sep) for (altura, ritmo) in compas]
+    # print()
+    # [print(("|" if (altura) else "")+ritmo,end=sep) for (altura, ritmo) in compas]
 
 desplegarMenu()
 numeradorInput = input ("Ingrese el compas: ")
@@ -54,13 +67,13 @@ while (op != "n"):
     op = input()
     if (op == "" or op == "1"):
         compases.append(calCompas(numerador, NOTAS))
-        printCompas(compases[nCompas], "\t")
+        printCompas(compases[nCompas])
         print("\n")
         nCompas += 1
     else:
         cmd = op.split()
-        if (len(cmd) > 1 and (cmd[0] == "2" or cmd[0] == "r")):
-            printCompases(cmd, compases)
+        if (len(cmd) > 1 and (int(cmd[0])%2 == 0 or cmd[0] == "r")):
+            printCompases(int(cmd[1]), compases)
 
 
 
