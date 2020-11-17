@@ -1,11 +1,17 @@
+import csv
 
+CLIEN_SCHEMA = ["name", "gmail"]
+clients = [
+    {
+        "name":"Luis",
+        "gmail":"luis@gmail.com"
+    },
+    {
+        "name":"Cristian",
+        "gmail":"cristian@gmail.com"
+    }
+]
 
-
-clients = "Luis,Cristian,Angel,Betsabe,Piero,"
-
-def _add_coma ():
-    global clients
-    clients += ","
 
 def _print_welcome ():
     print ("WELCOME TO LM VENTAS")
@@ -13,46 +19,54 @@ def _print_welcome ():
 
 
 def _print_menu ():
-    print ("What would you like to do today ?")
+    print ("What would you like to do today?")
     print ("[C]reate client")
     print ("[R]ead client's list")
     print ("[U]pdate client")
     print ("[D]elete client")
 
 def list_clients ():
-    global clients
-    for c in clients.split(","):
-        print(c)
+    for i,client in enumerate(clients):
+        print (i)
+        for field in client:
+            print (client[field])
 
 
-def update_client (client_name, updated_client_name):
+def update_client (client_id, updated_client):
     global clients
-    if client_name in clients:
-        clients = clients.replace(client_name, updated_client_name)
+    try:
+        clients[client_id] = updated_client
+    except:
+        print ("Didn't find the client's id")
+
+
+def create_client (client):
+    global clients
+    if client not in clients:
+        clients.append(client)
     else:
-        print ("'{}' is not in the client's list".format(client_name))
+        print ("Client already is in the Client's list")
 
-def create_client (client_name):
+def delete_client (client_id):
     global clients
-    if client_name not in clients:
-        clients += client_name
-        _add_coma()
-    else:
-        print ("'{}' already is in the Client's list".format(client_name))
+    try:
+        del clients[client_id]
+    except:
+        print ("Didn't find the client's id")
 
-def delete_client (client_name):
-    global clients
-    if client_name in clients:
-        clients = clients.replace(client_name + ",", "")
-    else:
-        print ("'{}' is not in the client's list".format(client_name))
     
-    
-def _get_client_name ():
-    return input ("What is the client name?: ")
+def _get_client_field (field_name):
+    field = None
+    while not field:
+        field = input ("What is the client {}?: ".format(field_name))
+    return field
 
-def _get_updated_client_name ():
-    return input ("What is the updated client name?: ")
+
+def ingress_client_data ():
+    client = {}
+    for field in CLIEN_SCHEMA:
+        client[field] = _get_client_field(field)
+    return client
 
 if __name__ == "__main__":
     _print_welcome()
@@ -61,16 +75,16 @@ if __name__ == "__main__":
         _print_menu()
         cmd = input ("").upper()
         if (cmd == "C"):
-            client_name = _get_client_name()
-            create_client (client_name)
+            client = ingress_client_data()
+            create_client (client)
         elif cmd == "R":
             list_clients()
         elif (cmd == "U"):
-            client_name = _get_client_name()
-            updated_client_name = _get_updated_client_name()
-            update_client (client_name, updated_client_name)
+            updated_client = ingress_client_data()
+            id_client = int(_get_client_field("id"))
+            update_client (id_client, updated_client)
         elif (cmd == "D"):
-            client_name = _get_client_name()
-            delete_client (client_name)
+            id_client = int(_get_client_field("id"))
+            delete_client (id_client)
         else:
             print ("Invalid command")
