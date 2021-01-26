@@ -11,5 +11,6 @@ def index ():
 
 @app.route('/hello') # RUTA HELLO
 def hello():
+    template = "menu.html"
     text = "IP = {}, name = {}".format(request.cookies.get("user_ip"), __name__)
-    return render_template ("hello.html", text = text)
+    return render_template (template, text = text)
