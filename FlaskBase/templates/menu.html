@@ -5,3 +5,11 @@
 {%block title%}
 {{super()}}Menu
 {%endblock%}
+
+{%block content%}
+<ul>
+    {%for dato in datos%}
+    <li>{{dato}}</li>
+    {%endfor%}
+</ul>
+{%endblock%}

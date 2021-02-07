@@ -13,4 +13,5 @@ def index ():
 def hello():
     template = "menu.html"
     text = "IP = {}, name = {}".format(request.cookies.get("user_ip"), __name__)
-    return render_template (template, text = text)
+    datos = ["Biografía", "Carrera", "Premios y reconocimientos"]
+    return render_template (template, text = text, datos = datos)
