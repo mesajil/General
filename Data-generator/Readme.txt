@@ -11,6 +11,19 @@ m3 es la cantidad de GLP en metros cúbicos (número entero), en el ejemplo es 1
 hlimite, el número de horas límite de la entrega, en el ejemplo 18.
 
 
+INFO
+
+Importante. Cambios de ubicación de los almacenes
+
+// El almacén central está ubicado en la posición X=12, Y=8.
+
+// El almacén intermedio Norte está en la posición X= 42, Y= 42.
+
+// El almacén intermedio Esta está en la posición X= 63, Y= 3.
+
+
+
+
   a. A partir de la data histórica, los equipos deben generar la data futura. En relación al punto 2, este proceso es INDEPENDIENTE de las simulaciones, pueden crear sus datos futuros las veces que sean necesarias, por lo que NO deben amarrarlo al proceso de simulación al colapso o simulación 3 días.
     b. La fecha de inició de la data futura será: el martes 16 de noviembre 2021, se sugiere que generen por, al menos, 6 meses.
     c. Los datos históricos se han generado usando una función polinomial de la forma....
