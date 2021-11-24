@@ -1,15 +1,14 @@
-
-
-
 """
 
 """
+import os
+
 # FILES
 
 n_files = 6
 f_title = "ventas{year}{month}.txt"
-
 n_lines_per_file = 10
+dir = "output/"
 
 # DATA
 
@@ -55,10 +54,10 @@ def enter_data (f):
 
 def main ():
 
-
+    os.mkdir(dir)
 
     for i in range(n_files):
-        f = open (f_title.format(year="2020", month=i), "w+")
+        f = open ((dir+f_title).format(year="2020", month=i), "w+")
         enter_data (f)
         f.close()
 
