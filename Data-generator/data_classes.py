@@ -125,3 +125,32 @@ class Date ():
         self.date += datetime.timedelta(days=1)
     def get_date(self):
         return self.date
+
+
+
+
+        
+
+
+class Data:
+
+    def __init__(self) :
+        self.data = []
+
+    def add (self, data):
+        self.data.append (data)
+
+    def extend (self, data):
+        self.data.extend(data)
+    def set_data (self, data):
+        self.data = data
+    def get_data (self):
+        return self.data
+    def insert (self, index, data):
+        self.data.insert (index, data)
+    
+    def get_str_data (self, sep):
+        
+        return sep.join([str(e) for e in self.data])
+    
+

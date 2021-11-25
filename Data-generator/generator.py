@@ -3,6 +3,7 @@ import os
 import random
 import datetime
 import data_classes
+import calendar
 
 # FILES PARAMETERS
 
@@ -24,6 +25,7 @@ month = 11
 day = 16
 date = data_classes.Date(datetime.datetime(year, month, day))
 
+
 sale_point = data_classes.Point ()
 sale_m3 = data_classes.CubicMeters()
 sale_dhours = data_classes.DeadLineHours()
@@ -41,14 +43,6 @@ sale_dhours.set_dhours(0)
 
 # PREPARE DATA CONDITIONS
 
-sep = ","
-data=[]
-data.append("16/11/2021")
-data.append(0)
-data.append(0)
-data.append(0)
-data.append(0)
-n_data_per_line = len(data)
 
 map = data_classes.Map ([(12,8)], [(42,42), (63,3)])
 #map = data_classes.Map ([(1,8)], [(2,2), (6,3)])
@@ -62,40 +56,50 @@ time_lim_weights = [10,40,40,10]
 
 
 
-def enter_line (f):
+
+
+def set_date (data_file):
+    format_date = "{day%2}:{hour%2}:{minute%2}"
+    step_seconds = int(24*60*60/len(data_file.get_data()))
+    rand_second = random.randint(0, step_seconds - 1)
+    date_line = datetime.datetime(date.get_date().year,date.get_date().month,date.get_date().day)
+    date_line += datetime.timedelta(seconds = rand_second)
+    for data in data_file.get_data():
+        data.insert(0, date_line.strftime("%d:%H:%M"))
+        date_line += datetime.timedelta(seconds = step_seconds)
+        
+def enter_line (data_lines):
     
-    data.insert(0, "{day}:{hour}:{minute}".format(day = date.get_date().day, hour = date.get_date().hour, minute = date.get_date().minute))
     
     point = random.choice(valid_points)
     time_lim_range = random.choices(population = time_lim_ranges, weights=time_lim_weights, k = 1)[0]
+    time_lim = random.randint(time_lim_range[0], time_lim_range[1])
     m3_range = random.choices(population = m3_ranges, weights=m3_weights, k = 1)[0]
     glp = random.randint(m3_range[0], m3_range[1])
-    data.insert(1, point[0])
-    data.insert(2, point[1])
-    data.insert(3, glp)
-    data.insert(4, random.randint(time_lim_range[0], time_lim_range[1]))
-    
-    for i in range (n_data_per_line):
 
-        f.write (str(data[i]))
-
-        if (i+1 != n_data_per_line):
-            f.write (sep)
-        else:
-            f.write ("\n")
+    line = data_classes.Data ()
+    line.set_data ([point[0], point[1], glp, time_lim])
+    data_lines.add (line.get_data())
     return glp
 
-def enter_data (f):
-    for i in range(2):
+def get_data ():
+    data_file = data_classes.Data()
+    for i in range(calendar.monthrange(date.get_date().year, date.get_date().month)[1] - date.get_date().day + 1):
+        data_lines = data_classes.Data()
         glp_max_day = grown_glp.get_glp()
         grown_glp.inc_x()
         glp_day = 0
         while (glp_day < glp_max_day):
-            glp_day += enter_line(f)
+            glp_day += enter_line(data_lines)
+        set_date (data_lines)
+        data_lines = [",".join([str(e) for e in data]) for data in data_lines.get_data()]
+        data_file.add("\n".join(data_lines))
         date.inc_a_day()
+    return data_file.get_str_data("\n")
 
 
-def create_files ():
+
+def generate_data ():
 
     try:
         os.mkdir(dir)
@@ -103,13 +107,12 @@ def create_files ():
         pass
 
     for i in range(n_files):
-        f = open ((dir+f_title).format(year="2020", month=i), "w+")
-        enter_data (f)
+        f = open (dir+"ventas"+date.get_date().strftime("%Y%m")+".txt", "w")
+        f.write (get_data ())
         f.close()
 
 
 
 if __name__ == "__main__":
-    #print (valid_points)
-    #print (random.choices(population = time_lim_ranges, weights=time_lim_weights, k = 1))
-    create_files()
+
+    generate_data()
