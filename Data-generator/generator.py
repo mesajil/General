@@ -7,7 +7,7 @@ import calendar
 
 # FILES PARAMETERS
 
-n_files = 2
+n_files = 9
 f_title = "ventas{year}{month}.txt"
 n_lines_per_file = 1
 dir = "output/"
@@ -16,7 +16,7 @@ dir = "output/"
 # DATA PARAMETERS
 
 a = 5
-b = 24
+b = 240
 n = 1.223
 x = 1
 grown_glp = data_classes.Grown_glp(a,b,n,x)
