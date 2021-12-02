@@ -7,10 +7,9 @@ import calendar
 
 # FILES PARAMETERS
 
-n_files = 9
+n_files = 100
 f_title = "ventas{year}{month}.txt"
-n_lines_per_file = 1
-dir = "output/"
+dir = "D:/PUCP/20141929/20212/DP1/output/out100/"
 
 
 # DATA PARAMETERS
@@ -18,20 +17,23 @@ dir = "output/"
 a = 5
 b = 240
 n = 1.223
+
 x = 1
 grown_glp = data_classes.Grown_glp(a,b,n,x)
 year = 2021
 month = 11
 day = 16
 date = data_classes.Date(datetime.datetime(year, month, day))
-
+my_fixed_date = datetime.datetime(2021,11,1,0,0)
 
 sale_point = data_classes.Point ()
 sale_m3 = data_classes.CubicMeters()
 sale_dhours = data_classes.DeadLineHours()
 
-sale_point.set_max_x(70)
-sale_point.set_max_y(50)
+map_width = 50;
+map_high = 70;
+sale_point.set_max_x(map_width - 1)
+sale_point.set_max_y(map_high - 1)
 sale_point.set_min_x(0)
 sale_point.set_min_y(0)
 sale_m3.set_max(60)
@@ -46,7 +48,7 @@ sale_dhours.set_dhours(0)
 
 map = data_classes.Map ([(12,8)], [(42,42), (63,3)])
 #map = data_classes.Map ([(1,8)], [(2,2), (6,3)])
-valid_points = [(i,j) for i in range(sale_point.get_min_x(), sale_point.get_max_x() + 1) for j in range(sale_point.get_min_y(), sale_point.get_max_y() + 1) if (i,j) not in (map.main_plants+map.inter_plants)]
+valid_points = [(i,j) for i in range(sale_point.get_min_x(), sale_point.get_max_x()) for j in range(sale_point.get_min_y(), sale_point.get_max_y()) if (i,j) not in (map.main_plants+map.inter_plants)]
 
 m3_ranges = [(1,4),(5,9),(10,14),(15,24),(25,60)]
 m3_weights = [10,4,4,2,1]
@@ -58,16 +60,20 @@ time_lim_weights = [10,40,40,10]
 
 
 
-def set_date (data_file):
+def set_date (ind, data_file):
     format_date = "{day%2}:{hour%2}:{minute%2}"
     step_seconds = int(24*60*60/len(data_file.get_data()))
     rand_second = random.randint(0, step_seconds - 1)
     date_line = datetime.datetime(date.get_date().year,date.get_date().month,date.get_date().day)
     date_line += datetime.timedelta(seconds = rand_second)
     for data in data_file.get_data():
-        data.insert(0, date_line.strftime("%d:%H:%M"))
+        data.insert(ind, date_line.strftime("%d:%H:%M"))
         date_line += datetime.timedelta(seconds = step_seconds)
-        
+
+def set_fixed_date (ind, date, data_file):
+    for data in data_file.get_data():
+        data.insert(ind, date.strftime("%d:%H:%M"))
+
 def enter_line (data_lines):
     
     
@@ -91,13 +97,22 @@ def get_data ():
         glp_day = 0
         while (glp_day < glp_max_day):
             glp_day += enter_line(data_lines)
-        set_date (data_lines)
+            
+        set_fixed_date (0, my_fixed_date, data_lines)
         data_lines = [",".join([str(e) for e in data]) for data in data_lines.get_data()]
         data_file.add("\n".join(data_lines))
         date.inc_a_day()
     return data_file.get_str_data("\n")
 
-
+def get_fixed_data ():
+    data_file = data_classes.Data()
+    for i in range(n_files):
+        data_lines = data_classes.Data()
+        enter_line(data_lines)
+        set_fixed_date (0, my_fixed_date, data_lines)
+        data_lines = [",".join([str(e) for e in data]) for data in data_lines.get_data()]
+        data_file.add("\n".join(data_lines))
+    return data_file.get_str_data("\n")
 
 def generate_data ():
 
@@ -105,10 +120,16 @@ def generate_data ():
         os.mkdir(dir)
     except:
         pass
+    
 
     for i in range(n_files):
-        f = open (dir+"ventas"+date.get_date().strftime("%Y%m")+".txt", "w")
-        f.write (get_data ())
+        sub_dir = dir + "{i}/".format(i=i+1)
+        try:
+            os.mkdir(sub_dir)
+        except:
+            pass
+        f = open (sub_dir+"ventas".format(i=i+1)+my_fixed_date.strftime("%Y%m")+".txt", "w")
+        f.write (get_fixed_data ())
         f.close()
 
 
