@@ -139,6 +139,7 @@ cython_debug/
 
 
 # Netbeans
+# .dep.inc will update
 
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
@@ -148,6 +149,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+.dep.inc
 
 
 # C++
