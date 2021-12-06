@@ -1,0 +1,45 @@
+static public List<Punto> astarAlgoritmo(Punto ini_point, Punto target_point, List<Bloqueo> locks) {
+		/*
+		 * Return the path from ini_point to target_point, given a set of locks
+		 * The path consists of a set of corner points.
+		 * Source: https://ieeexplore-ieee-org.ezproxybib.pucp.edu.pe/stamp/stamp.jsp?tp=&arnumber=8996720
+		 * 
+		 */
+		List<Punto> open = new ArrayList<Punto>();
+		List<Punto> closed = new ArrayList<Punto>();
+		ini_point.setAstarF(0);
+		ini_point.setAntecesor(null);
+		open.add(ini_point);
+		
+		while (!open.isEmpty()) {
+			
+			
+			Punto pre = open.remove(0);
+			for (Punto successor: obtenerSucesores(pre, locks)) {
+				successor.setAntecesor(pre);
+				if (mismaPosicion(successor,target_point)) {
+					
+					return obtenerPuntosEsquina(construirCamino(successor));
+				}
+				
+				successor.setAstarG(pre.getAstarG() + calcularDistanciasNodos(successor, pre));
+				successor.setAstarH(calcularDistanciasNodos(successor, target_point));
+				successor.setAstarF(successor.getAstarG() + successor.getAstarH());
+				
+				Punto best_point_to_explore = buscarPuntoConMenorF(successor, open);
+				Punto best_explored_point = buscarPuntoConMenorF(successor, closed);
+				boolean better_than_best_point_to_explore = best_point_to_explore == null || best_point_to_explore.getAstarF() > successor.getAstarF();
+				boolean better_than_best_explored_point = best_explored_point == null || best_explored_point.getAstarF() > successor.getAstarF();
+				
+				if (better_than_best_point_to_explore && better_than_best_explored_point) {
+					
+					//agregarYOrdenar (open, successor);
+					open.add(0, successor);
+				}
+				
+			}
+			closed.add(pre);
+		}
+
+		return null;
+	}
