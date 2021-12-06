@@ -139,7 +139,7 @@ cython_debug/
 
 
 # Netbeans
-# .dep.inc will update
+# I am adding ".dep.inc" file
 
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
